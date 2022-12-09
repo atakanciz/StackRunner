@@ -35,7 +35,6 @@ public class CameraManager : MonoSingleton<CameraManager>
             var isCamOn = (int)currentCameraType == i;
             var cam = cameras[i];
             
-            //This assignment operstor (=) is intentional.
             if (cam.enabled = isCamOn)
             {
                 CurrentCamera = cam;
@@ -47,5 +46,11 @@ public class CameraManager : MonoSingleton<CameraManager>
     {
         Instance.currentCameraType = cam;
         Instance.UpdateCurrentCamera();
+    }
+
+    public void SetFocus(Transform transform)
+    {
+        CurrentCamera.m_Follow = transform;
+        CurrentCamera.m_LookAt = transform;
     }
 }

@@ -9,14 +9,14 @@ using Random = UnityEngine.Random;
 
 public enum PanelType
 {
-    LoadingPanel,
     MainMenuPanel,
     GameplayPanel,
+    EndGamePanel
 }
 
 public class UIManager : MonoSingleton<UIManager>
 {
-    [SerializeField] private BasePanel mainMenuPanel, gameplayPanel;
+    [SerializeField] private BasePanel mainMenuPanel, gameplayPanel, endGamePanel;
 
     [SerializeField] private List<TextMeshProUGUI> moneyTexts;
 
@@ -25,6 +25,7 @@ public class UIManager : MonoSingleton<UIManager>
 
     public BasePanel MainMenuPanel => mainMenuPanel;
     public BasePanel GameplayPanel => gameplayPanel;
+    public BasePanel EndGamePanel => endGamePanel;
 
     public void Initialize()
     {
@@ -32,11 +33,11 @@ public class UIManager : MonoSingleton<UIManager>
         
         panels.AddRange(new[]
         {
-            mainMenuPanel, gameplayPanel
+            mainMenuPanel, gameplayPanel, endGamePanel
         });
 
         DeactivateAllPanels();
-        ActivatePanel(PanelType.LoadingPanel);
+        ActivatePanel(PanelType.MainMenuPanel);
         UpdateMoneyText();
     }
 
@@ -44,6 +45,7 @@ public class UIManager : MonoSingleton<UIManager>
     {
         panelDictionary.Add(PanelType.MainMenuPanel, mainMenuPanel);
         panelDictionary.Add(PanelType.GameplayPanel, gameplayPanel);
+        panelDictionary.Add(PanelType.EndGamePanel, endGamePanel);
     }
 
     private void OnEnable()
@@ -60,7 +62,7 @@ public class UIManager : MonoSingleton<UIManager>
     {
         foreach (var text in moneyTexts)
         {
-            text.text = $"{SaveData.CurrentMoney}";
+            //text.text = $"{SaveData.CurrentMoney}";
         }
     }
 
@@ -73,6 +75,10 @@ public class UIManager : MonoSingleton<UIManager>
         
         panelDictionary[type].gameObject.SetActive(true);
 
+        if (type == PanelType.EndGamePanel)
+        {
+            endGamePanel.Initialize(GameManager.CurrentState);
+        }
     }
     
     public void DeactivatePanel(PanelType type)

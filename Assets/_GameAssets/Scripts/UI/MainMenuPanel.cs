@@ -6,6 +6,6 @@ public class MainMenuPanel : BasePanel
 {
     public void OnPlayButtonClick()
     {
-        //GameManager.Instance.GameStarted();
+        GameManager.Instance.GameStarted();
     }
 }

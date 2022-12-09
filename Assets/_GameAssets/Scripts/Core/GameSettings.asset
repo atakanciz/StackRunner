@@ -12,16 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25186ade654c2487ab6ee735ac93197e, type: 3}
   m_Name: GameSettings
   m_EditorClassIdentifier: 
-  PlayerSpeed: 5
-  ProjectileSpeed: 2
-  ProjectileYArc: 0.5
-  DefaultFixedDeltaTime: 0.02
-  ProjectileMultiplier: 0.2
-  PlayerAimMultiplier: 2
-  MinForwardRange: 5
-  MaxForwardRange: 10
-  MinDisplacementAimX: -10
-  MaxDisplacementAimX: 10
-  PlayerAimMultiplierY: 2
-  MinDisplacementAimY: -5
-  MaxDisplacementAimY: 5
+  PlayerSpeed: 1
+  CubeMovementSpeed: 2
+  CubeDestructionThreshold: 2.8

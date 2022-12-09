@@ -56,7 +56,8 @@ public class GameManager : MonoSingleton<GameManager>
     {
         MMVibrationManager.Haptic(HapticTypes.Failure);
         CurrentState = GameStates.GameOver;
-        //UIManager.Instance.SwitchPanels(PanelType.GameplayPanel, PanelType.Lose);
+        CameraManager.Instance.SetFocus(null);
+        UIManager.Instance.SwitchPanels(PanelType.GameplayPanel, PanelType.EndGamePanel);
     }
 
     public void LevelCompleted()
