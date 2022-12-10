@@ -6,15 +6,21 @@ using UnityEngine;
 public class ObjectPoolManager : MonoSingleton<ObjectPoolManager>
 {
     public GameObject cubePrefab;
+    public GameObject discardedCubePrefab;
+    
     public Transform cubePoolParent;
+    public Transform discardedCubePoolParent;
 
     [HideInInspector] public List<GameObject> pooledCubeToRelease;
+    [HideInInspector] public List<GameObject> pooledDiscardedCubeToRelease;
 
     public ObjectPoolSystem<GameObject> CubePool;
+    public ObjectPoolSystem<GameObject> DiscardedCubePool;
 
     private void Awake()
     {
         InitCubePool();
+        InitDiscardedCubePool();
     }
     
     private void InitCubePool() =>
@@ -31,5 +37,21 @@ public class ObjectPoolManager : MonoSingleton<ObjectPoolManager>
         cube.GetComponent<Cube>().Reset();
         return cube;
     }
+    
+    private void InitDiscardedCubePool() =>
+        DiscardedCubePool = new ObjectPoolSystem<GameObject>(() =>
+                Instantiate(discardedCubePrefab, discardedCubePoolParent),
+            discardedCube => discardedCube.gameObject.SetActive(true),
+            discardedCube => discardedCube.gameObject.SetActive(false),
+            discardedCube => Destroy(discardedCube.gameObject),
+            false, 20, 50);
+    
+    public GameObject GetDiscardedCube()
+    {
+        GameObject discardedCube = DiscardedCubePool.Get();
+        discardedCube.GetComponent<DiscardedCube>().Reset();
+        return discardedCube;
+    }
+    
     
 }

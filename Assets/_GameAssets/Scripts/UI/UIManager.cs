@@ -77,7 +77,7 @@ public class UIManager : MonoSingleton<UIManager>
 
         if (type == PanelType.EndGamePanel)
         {
-            endGamePanel.Initialize(GameManager.CurrentState);
+            endGamePanel.Initialize();
         }
     }
     

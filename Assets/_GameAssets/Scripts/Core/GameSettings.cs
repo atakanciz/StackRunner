@@ -9,5 +9,6 @@ public class GameSettings : ScriptableObject
     
     [BoxGroup("Cube")] public float CubeMovementSpeed;
     [BoxGroup("Cube")] public float CubeDestructionThreshold;
+    [BoxGroup("Cube")] public float CubePerfectFitThreshold;
 
 }

@@ -10,6 +10,7 @@ TagManager:
   - Coin
   - StarBoost
   - EndCollider
+  - Collectable
   layers:
   - Default
   - TransparentFX

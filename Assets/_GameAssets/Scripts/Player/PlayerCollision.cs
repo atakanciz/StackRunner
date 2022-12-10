@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerCollision : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb;
+    [SerializeField] private PlayerAnimationController playerAnimationController;
     
     private void OnTriggerEnter(Collider other)
     {
@@ -24,19 +25,16 @@ public class PlayerCollision : MonoBehaviour
             GameManager.Instance.GameOver();
         }
 
-        if (other.CompareTag("Diamond"))
+        if (other.CompareTag("Collectable"))
         {
-            
+            Collectable collectable = other.GetComponent<Collectable>();
+            collectable.OnCollect();
         }
 
-        if (other.CompareTag("Coin"))
+        if (other.CompareTag("Finish"))
         {
-            
-        }
-
-        if (other.CompareTag("StarBoost"))
-        {
-            
+            playerAnimationController.PlayDance();
+            GameManager.Instance.LevelCompleted();
         }
     }
 }

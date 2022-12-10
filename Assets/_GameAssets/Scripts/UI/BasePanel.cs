@@ -3,5 +3,5 @@ using UnityEngine;
 
 public abstract class BasePanel : MonoBehaviour
 {
-    public virtual void Initialize(GameStates state){}
+    public virtual void Initialize(){}
 }

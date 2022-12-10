@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class LevelManager : MonoSingleton<LevelManager>
 {
+    [SerializeField] private GameObject finishPrefab;
     [SerializeField, ReorderableList] private List<Level> allLevels;
+    
     private Level loadedLevel;
+    public Level LoadedLevel => loadedLevel;
+    
 
     public void Create()
     {
@@ -15,6 +19,13 @@ public class LevelManager : MonoSingleton<LevelManager>
             var currentLevel = allLevels[levelIndex];
             loadedLevel = Instantiate(currentLevel);
             loadedLevel.transform.SetParent(transform);
+            CreateFinishPrefab();
         }
+    }
+
+    private void CreateFinishPrefab()
+    {
+        GameObject finish = Instantiate(finishPrefab, transform); 
+        finish.transform.position = Vector3.forward * loadedLevel.RoadCubeCount * 4f;
     }
 }

@@ -137,8 +137,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDefaultCube: 0
   visualTransform: {fileID: 7211197611490219571}
+  collider: {fileID: 1639643391883205256}
   endCollider: {fileID: 4236693930732864103}
-  material: {fileID: 7211197611490219569}
+  meshRenderer: {fileID: 7211197611490219569}
   materialList:
   - {fileID: 2100000, guid: 5b25cd95e3901d24f89b00fa0a88cf4c, type: 2}
   - {fileID: 2100000, guid: d1e7205df0c8b0142bf4385f4199ab2c, type: 2}

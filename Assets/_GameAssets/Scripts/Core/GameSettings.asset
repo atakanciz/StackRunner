@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25186ade654c2487ab6ee735ac93197e, type: 3}
   m_Name: GameSettings
   m_EditorClassIdentifier: 
-  PlayerSpeed: 1
-  CubeMovementSpeed: 2
+  PlayerSpeed: 3
+  CubeMovementSpeed: 6
   CubeDestructionThreshold: 2.8
+  CubePerfectFitThreshold: 0.15

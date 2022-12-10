@@ -66,8 +66,8 @@ public class GameManager : MonoSingleton<GameManager>
         SaveData.CurrentLevel++;
         
         MMVibrationManager.Haptic(HapticTypes.Success);
-        //CameraManager.ChangeCamera(CameraTypes.EndGame);
-        //UIManager.Instance.SwitchPanels(PanelType.GamePlay, PanelType.Win);
+        CameraManager.ChangeCamera(CameraTypes.EndGame);
+        UIManager.Instance.SwitchPanels(PanelType.GameplayPanel, PanelType.EndGamePanel);
     }
 
     public void OnLevelWait()
