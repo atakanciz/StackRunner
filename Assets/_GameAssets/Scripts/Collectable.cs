@@ -15,11 +15,11 @@ public class Collectable : MonoBehaviour
 
     public void OnCollect()
     {
-        DOTween.Kill(rotationTween);
+        rotationTween.Kill();
         
         DOTween.Sequence()
-            .AppendCallback(() => transform.DOScale(Vector3.zero, .6f).SetEase(Ease.Linear))
-            .Append(transform.DOMoveY(transform.position.y + 2f, .65f).SetEase(Ease.Linear))
+            .AppendCallback(() => transform.DOScale(Vector3.zero, .2f).SetEase(Ease.Linear))
+            .Append(transform.DOMoveY(transform.position.y + 4f, .3f).SetEase(Ease.Linear))
             .OnComplete(() => Destroy(gameObject));
             
     }

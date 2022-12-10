@@ -15,7 +15,8 @@ public class PlayerCollision : MonoBehaviour
             Cube hitCube = other.GetComponentInParent<Cube>();
             if (hitCube.IsPlaced)
             {
-                RoadManager.Instance.CreateNextCube(hitCube);
+                GameEvents.Instance.CreateNextCubeTrigger(hitCube);
+                //RoadManager.Instance.CreateNextCube(hitCube);
             }
         }
 

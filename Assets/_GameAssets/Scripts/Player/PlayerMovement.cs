@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
-public class PlayerMovement : MonoSingleton<PlayerMovement>
+public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private Transform playerVisual;
     [SerializeField] private Transform endGameRotationPoint;
@@ -14,6 +14,8 @@ public class PlayerMovement : MonoSingleton<PlayerMovement>
 
     private void Start()
     {
+        GameEvents.Instance.onCubePlacementComplete += SetPositionX;
+        
         endGameRotationPoint.DORotate(Vector3.up * 180f, 4f)
             .SetLoops(-1, LoopType.Incremental)
             .SetEase(Ease.Linear);
@@ -30,5 +32,10 @@ public class PlayerMovement : MonoSingleton<PlayerMovement>
     public void SetPositionX(float x)
     {
         playerVisual.DOMoveX(x, .2f).SetEase(Ease.Linear);
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.Instance.onCubePlacementComplete -= SetPositionX;
     }
 }

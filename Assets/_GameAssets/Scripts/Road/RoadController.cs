@@ -3,16 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoadManager : MonoSingleton<RoadManager>
+public class RoadController : MonoBehaviour
 {
     private Cube currentCube;
     private Cube nextCube;
     private int spawnedCubeCount;
     private int perfectFitCounter;
+    private bool isPerfectFit;
 
     private GameSettings settings => SettingsManager.GameSettings;
     private float cubePerfectFitThreshold => settings.CubePerfectFitThreshold;
 
+    private void Start()
+    {
+        GameEvents.Instance.onCreateNextCube += CreateNextCube;
+        GameEvents.Instance.onCubePlacement += CubePlacementRoutine;
+    }
 
     public void CreateNextCube(Cube currentCube)
     {
@@ -32,8 +38,6 @@ public class RoadManager : MonoSingleton<RoadManager>
         nextCube.Initialize();
     }
 
-    private bool isPerfectFit;
-
     public void CubePlacementRoutine()
     {
         InputManager.Instance.AbleToTouch = false;
@@ -49,7 +53,7 @@ public class RoadManager : MonoSingleton<RoadManager>
         else
         {
             AudioManager.Instance.PlayBrick();
-            nextCube.DestructionWithDiscard();
+            nextCube.DestructionWithDiscard(false);
             GameManager.Instance.GameOver();
         }
     }
@@ -77,4 +81,11 @@ public class RoadManager : MonoSingleton<RoadManager>
         }
 
     }
+
+    private void OnDisable()
+    {
+        GameEvents.Instance.onCreateNextCube -= CreateNextCube;
+        GameEvents.Instance.onCubePlacement -= CubePlacementRoutine;
+    }
+
 }

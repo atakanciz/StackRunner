@@ -14,7 +14,7 @@ public enum PanelType
     EndGamePanel
 }
 
-public class UIManager : MonoSingleton<UIManager>
+public class UIManager : MonoBehaviour
 {
     [SerializeField] private BasePanel mainMenuPanel, gameplayPanel, endGamePanel;
 
@@ -27,6 +27,12 @@ public class UIManager : MonoSingleton<UIManager>
     public BasePanel GameplayPanel => gameplayPanel;
     public BasePanel EndGamePanel => endGamePanel;
 
+    public static UIManager Instance;
+    private void Awake()
+    {
+        Instance = this;
+    }
+    
     public void Initialize()
     {
         CreateDictionary();

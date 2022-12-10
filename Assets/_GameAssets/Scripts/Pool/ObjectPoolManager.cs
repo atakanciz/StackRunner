@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPoolManager : MonoSingleton<ObjectPoolManager>
+public class ObjectPoolManager : MonoBehaviour
 {
     public GameObject cubePrefab;
     public GameObject discardedCubePrefab;
@@ -16,9 +16,12 @@ public class ObjectPoolManager : MonoSingleton<ObjectPoolManager>
 
     public ObjectPoolSystem<GameObject> CubePool;
     public ObjectPoolSystem<GameObject> DiscardedCubePool;
-
+    
+    public static ObjectPoolManager Instance;
+   
     private void Awake()
     {
+        Instance = this;
         InitCubePool();
         InitDiscardedCubePool();
     }

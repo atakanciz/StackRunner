@@ -4,13 +4,19 @@ using System.Collections.Generic;
 using Lean.Touch;
 using UnityEngine;
 
-public class InputManager : MonoSingleton<InputManager>
+public class InputManager : MonoBehaviour
 {
     private bool ableToTouch;
     public bool AbleToTouch
     {
         get => ableToTouch;
         set => ableToTouch = value;
+    }
+    
+    public static InputManager Instance;
+    private void Awake()
+    {
+        Instance = this;
     }
     
     private void OnEnable()
@@ -25,9 +31,10 @@ public class InputManager : MonoSingleton<InputManager>
 
     private void Tap(LeanFinger finger)
     {
-        if (ableToTouch)
+        if (GameManager.CurrentState == GameStates.Gameplay && ableToTouch)
         {
-            RoadManager.Instance.CubePlacementRoutine();
+            GameEvents.Instance.CubePlacementTrigger();
+            //RoadManager.Instance.CubePlacementRoutine();
         }
     }
 }

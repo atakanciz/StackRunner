@@ -12,7 +12,7 @@ public enum CameraTypes
     EndGame = 2
 }
 
-public class CameraManager : MonoSingleton<CameraManager>
+public class CameraManager : MonoBehaviour
 {
     public static Camera MainCamera => Instance.mainCamera;
 
@@ -22,6 +22,12 @@ public class CameraManager : MonoSingleton<CameraManager>
 
     private CameraTypes currentCameraType;
     public CinemachineVirtualCamera CurrentCamera { get; set; }
+
+    public static CameraManager Instance;
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {

@@ -2,7 +2,7 @@ using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelManager : MonoSingleton<LevelManager>
+public class LevelManager : MonoBehaviour
 {
     [SerializeField] private GameObject finishPrefab;
     [SerializeField, ReorderableList] private List<Level> allLevels;
@@ -10,6 +10,12 @@ public class LevelManager : MonoSingleton<LevelManager>
     private Level loadedLevel;
     public Level LoadedLevel => loadedLevel;
     
+    
+    public static LevelManager Instance;
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     public void Create()
     {

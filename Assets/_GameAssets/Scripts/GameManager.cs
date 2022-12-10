@@ -16,7 +16,7 @@ public enum GameStates
     Wait
 }
 
-public class GameManager : MonoSingleton<GameManager>
+public class GameManager : MonoBehaviour
 {
     private GameStates currentState = GameStates.MainMenu;
     public static GameStates CurrentState
@@ -29,6 +29,12 @@ public class GameManager : MonoSingleton<GameManager>
         {
             Instance.currentState = value;
         }
+    }
+    
+    public static GameManager Instance;
+    private void Awake()
+    {
+        Instance = this;
     }
 
     private void OnEnable()

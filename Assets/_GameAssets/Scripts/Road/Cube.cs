@@ -65,14 +65,14 @@ public class Cube : MonoBehaviour
         {
             if (visualTransform.position.x > cubeDestructionThreshold)
             {
-                DestructionWithDiscard();
+                DestructionWithDiscard(true);
             }
         }
         else
         {
             if (visualTransform.position.x < -cubeDestructionThreshold)
             {
-                DestructionWithDiscard();
+                DestructionWithDiscard(true);
             }
         }
     }
@@ -99,7 +99,7 @@ public class Cube : MonoBehaviour
 
         if (!isPerfectFit)
         {
-            PlayerMovement.Instance.SetPositionX(visualTransform.position.x);
+            GameEvents.Instance.CubePlacementComplete(visualTransform.position.x);
             float direction = diff > 0 ? 1f : -1f;
             float boundary = visualTransform.position.x + (insideSize / 2) * direction;
             float outsideCubeXPos = boundary + (outsideSize / 2) * direction;
@@ -111,6 +111,7 @@ public class Cube : MonoBehaviour
     private void DiscardOutsideCube(float size, float xPos)
     {
         AudioManager.Instance.PlayBrick();
+        
         GameObject discardedCubeObj = ObjectPoolManager.Instance.GetDiscardedCube();
         discardedCubeObj.transform.position = transform.position;
         DiscardedCube discardedCube = discardedCubeObj.GetComponentInChildren<DiscardedCube>();
@@ -130,16 +131,22 @@ public class Cube : MonoBehaviour
         endCollider.enabled = false;
     }
     
-    public void DestructionWithDiscard()
+    public void DestructionWithDiscard(bool isDiscardedAll)
     {
+        if (isDiscardedAll)
+        {
+            InputManager.Instance.AbleToTouch = false;
+        }
+
         AudioManager.Instance.PlayBrick();
+        
+        ObjectPoolManager.Instance.CubePool.Release(gameObject);
         GameObject discardedCubeObj = ObjectPoolManager.Instance.GetDiscardedCube();
         discardedCubeObj.transform.position = transform.position;
         DiscardedCube discardedCube = discardedCubeObj.GetComponentInChildren<DiscardedCube>();
         discardedCube.Visual.localScale = visualTransform.localScale;
         discardedCube.Visual.position = visualTransform.position;
         discardedCube.Initialize(meshRenderer.material);
-        ObjectPoolManager.Instance.CubePool.Release(gameObject);
     }
 
     public void Reset()
