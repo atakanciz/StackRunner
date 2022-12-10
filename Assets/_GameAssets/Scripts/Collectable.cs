@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Collectable : MonoBehaviour
 {
+    [SerializeField] private Collider collider;
+    
     private Tween rotationTween;
     void Start()
     {
@@ -15,11 +17,12 @@ public class Collectable : MonoBehaviour
 
     public void OnCollect()
     {
+        collider.enabled = false;
         rotationTween.Kill();
         
         DOTween.Sequence()
-            .AppendCallback(() => transform.DOScale(Vector3.zero, .2f).SetEase(Ease.Linear))
-            .Append(transform.DOMoveY(transform.position.y + 4f, .3f).SetEase(Ease.Linear))
+            .AppendCallback(() => transform.DOScale(Vector3.zero, .3f).SetEase(Ease.Linear))
+            .Append(transform.DOMoveY(transform.position.y + 4f, .4f).SetEase(Ease.Linear))
             .OnComplete(() => Destroy(gameObject));
             
     }

@@ -52,9 +52,7 @@ public class RoadController : MonoBehaviour
         }
         else
         {
-            AudioManager.Instance.PlayBrick();
             nextCube.DestructionWithDiscard(false);
-            GameManager.Instance.GameOver();
         }
     }
 
